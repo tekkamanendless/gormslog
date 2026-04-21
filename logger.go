@@ -35,10 +35,12 @@ func New(options ...Option) *Logger {
 }
 
 // LogMode returns a new logger with the desired log mode.
+//
+// This is required as part of the logger.Interface interface.
 func (l Logger) LogMode(level logger.LogLevel) logger.Interface {
-	return &Logger{
-		level: level,
-	}
+	newLogger := l
+	newLogger.level = level
+	return &newLogger
 }
 
 // determineProgramCounter returns the appropriate program counter for the caller.
