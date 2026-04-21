@@ -35,10 +35,12 @@ func New(options ...Option) *Logger {
 }
 
 // LogMode returns a new logger with the desired log mode.
+//
+// This is required as part of the logger.Interface interface.
 func (l Logger) LogMode(level logger.LogLevel) logger.Interface {
-	return &Logger{
-		level: level,
-	}
+	newLogger := l
+	newLogger.level = level
+	return &newLogger
 }
 
 // determineProgramCounter returns the appropriate program counter for the caller.
@@ -61,7 +63,7 @@ func determineProgramCounter() uintptr {
 				fmt.Printf("ENTRY: Function: %s\n", frame.Function)
 				fmt.Printf("ENTRY: Line: %d\n", frame.Line)
 				//*/
-			if strings.Contains(frame.Function, "/Logger.Logger.") {
+			if strings.Contains(frame.Function, "/gormslog.Logger.") {
 				// This is one of our own functions, so we can skip it.
 			} else if strings.Contains(frame.File, "/gorm@") {
 				// This is a Gorm call, so we can skip it.
