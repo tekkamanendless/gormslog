@@ -1,4 +1,4 @@
-package nillogger
+package Logger
 
 import (
 	"context"
@@ -7,27 +7,27 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-// NilLogger is a gorm logger that does absolutely nothing.
-type NilLogger struct{}
+// Logger is a gorm logger that does absolutely nothing.
+type Logger struct{}
 
-var _ logger.Interface = (*NilLogger)(nil)
+var _ logger.Interface = (*Logger)(nil)
 
-func (l *NilLogger) LogMode(level logger.LogLevel) logger.Interface {
+func (l *Logger) LogMode(level logger.LogLevel) logger.Interface {
 	return l
 }
 
-func (l *NilLogger) Info(ctx context.Context, s string, args ...interface{}) {
+func (l *Logger) Info(ctx context.Context, s string, args ...interface{}) {
 	// Do nothing.
 }
 
-func (l *NilLogger) Warn(ctx context.Context, s string, args ...interface{}) {
+func (l *Logger) Warn(ctx context.Context, s string, args ...interface{}) {
 	// Do nothing.
 }
 
-func (l *NilLogger) Error(ctx context.Context, s string, args ...interface{}) {
+func (l *Logger) Error(ctx context.Context, s string, args ...interface{}) {
 	// Do nothing.
 }
 
-func (l *NilLogger) Trace(ctx context.Context, begin time.Time, fc func() (string, int64), err error) {
+func (l *Logger) Trace(ctx context.Context, begin time.Time, fc func() (string, int64), err error) {
 	// Do nothing.
 }
